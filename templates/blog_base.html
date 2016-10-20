@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <title>Blog</title>
+        <link rel="stylesheet" href="/stylesheets/main.css" />
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="row header-row">
+                <header class="col-4 header-title">
+                    <h1>
+                        Blog
+                    </h1>
+                </header>
+                <nav class="col-8 nav-config">
+                        {% if username %}
+                            {{username}}
+                            <a href="/logout">Logout</a>
+                            <a href="/">Home</a>
+                            <a href="/newpost">New post</a>
+                        {% else %}
+                            <a href="/">Home</a>
+                            <a href="/signup">Signup</a>
+                            <a href="/login">Login</a>
+                        {% endif %}
+                </nav>
+            </div>
+            <section class="blog_content">
+                {% block content %}
+                {% endblock %}
+            </section>
+        </div>
+    </body>
+
+</html>

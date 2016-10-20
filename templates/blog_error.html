@@ -1,0 +1,28 @@
+{% extends "blog_base.html" %}
+
+{% block content %}
+
+  <h2>Error Page</h2>
+    {% if code %}
+        {% if code == 'you_should_login' %}
+            You should <a href="/login">login</a>first!
+        {% elif code == 'no_post_found' %}
+            Ooops, something went wrong! Maybe the post has been deleted.
+        {% elif code == 'no_right' %}
+            You do not have right for this action!
+        {% elif code == 'cannot_like_own_post' %}
+            You cannot like your own post!
+        {% elif code == 'you_already_like_it' %}
+            You have already liked thie post!
+        {% elif code == 'no_like_found' %}
+            Ooops, something went wrong! Maybe your like has been deleted.
+        {% elif code == 'no_comment_found' %}
+            Ooops, something went wrong! Maybe your comment has been deleted.
+        {% else %}
+            {{code}}
+        {% endif %}
+    {% else %}
+        There is no error!
+    {% endif %}
+
+{% endblock %}

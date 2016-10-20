@@ -1,0 +1,27 @@
+<div class="comment">
+    <div class="row comment-header">
+        <div class="col-7 comment-author">
+         {{ p.author_user().name }}
+        </div>
+        <div class="col-3 comment-date">
+         {{ p.created.strftime("%d-%m-%y %I:%M%p") }}
+        </div>
+        <div class="col-1 comment-date">
+        {% if p.author_user().name == username %}
+            <a href="/del_com?post_id={{post_id}}&comment_id={{comment_id}}">
+                &#128465;
+            </a>
+        {% endif %}
+        </div>
+        <div class="col-1 comment-date">
+        {% if p.author_user().name == username %}
+            <a href="/edit_com?post_id={{post_id}}&comment_id={{comment_id}}">
+                &#9998;
+            </a>
+        {% endif %}
+        </div>
+    </div>
+    <div class="row comment-content">
+        {{ p._render_text | safe}}
+    </div>
+</div>

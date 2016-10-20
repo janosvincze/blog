@@ -1,0 +1,19 @@
+<div class="comment">
+    <div class="row comment-header">
+        <div class="col-7 comment-author">
+         {{ p.author_user().name }}
+        </div>
+        <div class="col-3 comment-date">
+         {{ p.created.strftime("%d-%m-%y %I:%M%p") }}
+        </div>
+        <div class="col-2 comment-date">
+            {%if username == p.author_user().name %}
+            <form  method="post" action="/del_like">
+                <input type="hidden" name="like_id" value="{{like_id}}">
+                <input type="hidden" name="post_id" value="{{post_id}}">
+                <input type="submit" name="submit" value="Delete">
+            </form>
+            {% endif %}
+        </div>
+    </div>
+</div>

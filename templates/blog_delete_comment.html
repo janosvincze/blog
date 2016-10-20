@@ -1,0 +1,17 @@
+{% extends "blog_base.html" %}
+
+{% block content %}
+
+    <h2>Delete Comment</h2>
+    <p>{{comment}}</p>
+
+    <h3>Are you absolutely sure you want to delete?</h3>
+    <form  method="post">
+        <input type="hidden" name="comment_id" value="{{comment_id}}">
+        <input type="hidden" name="post_id" value="{{post_id}}">
+        <input type="submit" name="submit" value="I want to delete">
+        <a href="/{{post_id}}">
+            <input type="button" name="cancel" value="Cancel"/>
+        </a>
+    </form>
+{% endblock %}

@@ -1,0 +1,77 @@
+<div class="post">
+    <div class="post-heading">
+        <div class="row">
+        {% if username == p.author_user().name %}
+            <div class="col-6 post-title">
+                <a href="/{{post_id}}">{{p.subject}}</a>
+            </div>
+            <div class="col-1 post-navi">
+                <a href="/newpost?post_id={{post_id}}">
+                    <span class="text">Edit</span>
+                    <span class="small-text">&#9998;
+                    </span>
+                </a>
+            </div>
+            <div class="col-1 post-navi">
+                <a href="/delete?post_id={{post_id}}">
+                    <span class="text">Delete</span>
+                    <span class="small-text">&#128465;
+                    </span>
+                </a>
+            </div>
+        {% else %}
+            <div class="col-8 post-title">
+                <a href="/{{post_id}}">{{p.subject}}</a>
+            </div>
+        {% endif %}
+            <div class="col-4 post-author">
+                {{p.author_user().name}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4 post-date">
+                {{p.created.strftime("%b %d, %Y")}}
+            </div>
+            <div class="col-2 post-comment-count">
+                {% if (username != p.author_user().name) and
+                        (username) and (can_like) %}
+                <form method="post" action="/like">
+                    <input type="hidden" name="post_id" value="{{post_id}}">
+                    <div class="error">{{like_error}}</div>
+                    <input class="new_post_submit" type="submit" value="Like">
+                </form>
+                {% else %}
+                    &nbsp;
+                {% endif %}
+            </div>
+            <div class="col-3 post-comment-count">
+
+                {% if not p.like_count %}
+                    0 like
+                {% elif p.like_count == 1 %}
+                    <div class="tooltip">1 like
+                        <span class="tooltiptext">{{like_str}}</span>
+                    </div>
+                {% elif p.like_count > 1 %}
+                     <div class="tooltip">{{p.like_count}} likes
+                         <span class="tooltiptext">{{like_str}}</span>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="col-3 post-comment-count">
+                {% if p.comment_count == 1 %}
+                    1 comment
+                {% elif p.comment_count > 1 %}
+                    {{p.comment_count}} comments
+                {% else %}
+                    &nbsp;
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="row post-content">
+        {{p._render_text | safe}}
+    </div>
+
+</div>

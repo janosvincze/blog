@@ -1,0 +1,32 @@
+{% extends "blog_base.html" %}
+
+{% block content %}
+
+    {{posted.render(username) | safe}}
+    <h2>Likes</h2>
+    {% if likes %}
+        {% for lik in likes %}
+            {{ lik.render(username) | safe }}
+        {% endfor %}
+    {% endif %}
+    <h2>Comments</h2>
+    {% if comments %}
+        {% for com in comments %}
+            {{ com.render(username) | safe }}
+            <br><br>
+        {% endfor %}
+    {% endif %}
+    {% if username %}
+        <h2>New comment</h2>
+        <form method="post" action="/newcomment">
+            <input type="hidden" name="post_id" value="{{post_id}}">
+            <label class="new_post_input_label">
+                <div class="new_post_input">Article</div>
+                    <textarea class="input_article" name="comment_content">{{comment_content}}</textarea>
+            </label>
+
+            <div class="error">{{error}}</div>
+            <input class="new_post_submit" type="submit">
+        </form>
+    {% endif %}
+{% endblock %}
