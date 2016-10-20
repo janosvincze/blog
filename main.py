@@ -192,8 +192,7 @@ class Post(db.Model):
         if username:
             u = User.by_name(username)
             if u:
-                l = self.like_post_collection.filter('author =',
-                            u).fetch(1)
+                l = self.like_post_collection.filter('author =', u).fetch(1)
                 if not l:
                     can_like = True
 
@@ -213,6 +212,7 @@ class Post(db.Model):
 
 def comment_key(name='default'):
     return db.Key.from_path('blog_comments', name)
+
 
 class Comment(db.Model):
     comment = db.TextProperty(required=True)
@@ -244,6 +244,7 @@ class Comment(db.Model):
 
 def like_key(name='default'):
     return db.Key.from_path('Like', name)
+
 
 class Like(db.Model):
     author = db.ReferenceProperty(User, required=True)
@@ -304,7 +305,6 @@ class PostPage(BlogHandler):
                         comments=comments,
                         likes=likes,
                         post_id=post_id)
-
 
     def post(self, post_id):
         if not self.user:
@@ -454,7 +454,6 @@ class DeleteComment(BlogHandler):
         else:
             return self.redirect('/error?code=you_should_login')
 
-
     def post(self):
         if not self.user:
             return self.redirect('/error?code=you_should_login')
@@ -585,7 +584,9 @@ class NewLike(BlogHandler):
             if (post.author_user() == self.user):
                 return self.redirect('/error?code=cannot_like_own_post')
 
-            l = post.like_post_collection.filter('author =', self.user).fetch(1)
+            l = post.like_post_collection.filter(
+                    'author =',
+                    self.user).fetch(1)
 
             if l:
                 return self.redirect('/error?code=you_already_like_it')
